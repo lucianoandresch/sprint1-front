@@ -288,3 +288,41 @@ a:active { text-decoration: none; }
   padding-left: 40px;
   font-size: 16px;
 }
+
+/* HOME */
+
+.home-container{
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-landing-image{
+  height: 65vh;
+}
+
+.home-message{
+  font-size: 22px;
+  font-weight: 300;
+  text-decoration-style: italic;
+}
+
+.home-row{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+}
+
+.home-line{
+  font-size: 22px;
+  font-weight: 300;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.home-group6{
+  font-size: 22px;
+  font-weight: 300;
+}

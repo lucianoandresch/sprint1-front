@@ -1,7 +1,16 @@
-import React from "react";
-
+import React from 'react';
+import landing from '../assets/landing.jpeg';
 export default function Home() {
-    return (
-        <h2>Welcome to Best Alerts</h2>
-    );
+  return (
+    <div className="home-container">
+      <img src={landing} alt="landing_image" className="home-landing-image" />
+      <div className="home-row">
+        <h1 className="home-message">
+          “Los tramites de tu auto ya no son un problema”
+        </h1>
+        <h1 className="home-line">-</h1>
+        <h1 className="home-group6"> Grupo 6</h1>
+      </div>
+    </div>
+  );
 }
