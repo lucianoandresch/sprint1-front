@@ -1,3 +1,12 @@
+:root {
+  --primaryBlue: #003591;
+  --secondaryBlue: #6095F0;
+  --primaryGreen: #BCED40;
+  --secondaryGreen: #82A133;
+  --primaryWhite: #FFFFFF;
+  --primaryBlack: #000000;
+ }
+
 .App {
   text-align: center;
 }
@@ -14,14 +23,14 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: var(--primaryGreen);
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: var(--primaryBlack);
 }
 
 .App-link {
@@ -113,13 +122,15 @@
 
 #logo1{
   height: 60px;
-  background-color: black;
+  background-color: var(--primaryGreen);
+  display: 'flex';
+  align-items: 'flex-end';
 }
 nav{padding-top: 20px;}
 
 .navi{
   display: inline;
-  color: white;
+  color: var(--primaryBlack);
   text-decoration: none;
   padding-left: 40px;
   font-weight: bolder;
@@ -135,4 +146,93 @@ a:active { text-decoration: none; }
 .formu{
   display: inline-block;
   padding-left: 40px;
+}
+
+/* LOGIN */
+.green-container {
+  width: 80%;
+  height: 50%;
+  background-color: 'transparent';
+  border-color: var(--secondaryGreen);
+  border-width: 6px;
+  border-radius: 50px;
+  border-style: solid;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  padding: 25;
+  justify-content: 'space-between';
+  align-self: center;
+}
+
+.login-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+/* FOOTER */
+.footer-container{
+  background-color: var(--secondaryBlue);
+  height: 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.names-text{
+  color: var(--primaryWhite);
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.group6-text{
+  color: var(--primaryWhite);
+  font-size: 25px;
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+/* HEADER */
+.page-header{
+  height: 60px;
+  background-color: var(--primaryGreen);
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 16px;
+}
+
+.nav-home-icon{
+  padding-left: 16px;
+}
+
+.nav-buttons{
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.nav-button-text{
+  display: inline;
+  text-decoration: none;
+  padding-left: 5px;
+  font-size: 16px;
+  padding-right: 5px;
+}
+
+.nav-button{
+  color: var(--primaryBlack);
+  padding-left: 40px;
+  font-size: 16px;
 }
