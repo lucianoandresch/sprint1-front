@@ -161,18 +161,70 @@ a:active { text-decoration: none; }
   text-align: center;
   display: flex;
   flex-direction: row;
-  padding: 25;
-  justify-content: 'space-between';
+  padding: 40px;
+  justify-content: space-between;
   align-self: center;
+}
+
+.login-title{
+  color: var(--primaryBlue);
+  text-align: 'center';
+  font-weight: 'bold';
+  font-size: 28px;
+}
+
+.login-image{
+  width: 450px;
 }
 
 .login-view {
   display: flex;
   flex-direction: column;
+  text-align: center;
   justify-content: center;
   width: 100%;
 }
 
+.login-form-view{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: flex-start;
+}
+
+.form-title{
+  color: var(--primaryBlue);
+  text-align: center;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.form-label{
+  color: var(--primaryBlack);
+  text-align: left;
+  font-size: 16px;
+}
+
+.form-submit{
+  background-color: var(--primaryBlue);
+  height: 40px;
+  border-radius: 50px;
+  border-color: transparent;
+  width: 160px;
+  box-shadow: 0px;
+  color: var(--primaryWhite);
+  font-size: 16px;
+  margin: 20px;
+}
+
+.form-text-field{
+  background-color: var(--primaryWhite);
+  height: 30px;
+  width: 350px;
+  border-color: var(--primaryBlack);
+  border-width: 1px;
+  padding: 5px; 
+}
 /* FOOTER */
 .footer-container{
   background-color: var(--secondaryBlue);

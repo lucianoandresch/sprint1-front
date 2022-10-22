@@ -1,31 +1,33 @@
-import { primaryBlue } from '../styles/variables';
 import loginImage from '../assets/login_car.png';
 import { welcome } from '../staticText';
+import { FaEye } from 'react-icons/fa';
 
 export default function SignIn() {
   return (
-    <div style={{ alignItems: 'center', textAlign: 'center' }}>
-      <h2
-        style={{
-          color: primaryBlue,
-          textAlign: 'center',
-          fontWeight: '800',
-        }}
-      >
-        {welcome}
-      </h2>
+    <div className="login-view">
+      <h2 className="login-title">{welcome}</h2>
       <div className="green-container">
         <div>
-          <img src={loginImage} alt="login_image" style={{ width: '50%' }} />
+          <img src={loginImage} alt="login_image" className="login-image" />
         </div>
-        <form>
-          <label>
-            Name:
-            <input type="text" name="name" />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
+        <div className="login-form-view">
+          <h4 className="form-title">Iniciar sesión</h4>
+          <form>
+            <label>
+              <p className="form-label">Nombre</p>
+              <input type="text" name="name" className="form-text-field" />
+            </label>
+            <br />
+            <label>
+              <p className="form-label">Contraseña</p>
+              <input type="password" name="pass" className="form-text-field" />
+            </label>
+            <br />
+            <input type="submit" value="Ingresar" className="form-submit" />
+          </form>
+        </div>
       </div>
+      <FaEye />
     </div>
   );
 }
