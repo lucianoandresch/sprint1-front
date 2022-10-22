@@ -5,9 +5,9 @@ export default function Home() {
     <div className="home-container">
       <img src={landing} alt="landing_image" className="home-landing-image" />
       <div className="home-row">
-        <h1 className="home-message">
+        <i className="home-message">
           “Los tramites de tu auto ya no son un problema”
-        </h1>
+        </i>
         <h1 className="home-line">-</h1>
         <h1 className="home-group6"> Grupo 6</h1>
       </div>

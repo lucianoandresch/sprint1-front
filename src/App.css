@@ -305,7 +305,7 @@ a:active { text-decoration: none; }
 .home-message{
   font-size: 22px;
   font-weight: 300;
-  text-decoration-style: italic;
+  text-decoration: italic;
 }
 
 .home-row{
