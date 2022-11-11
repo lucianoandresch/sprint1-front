@@ -1,0 +1,26 @@
+.footer-container{
+  background-color: var(--secondaryBlue);
+  height: 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.names-text{
+  color: var(--primaryWhite);
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.group6-text{
+  color: var(--primaryWhite);
+  font-size: 25px;
+  font-weight: bold;
+  margin-right: 20px;
+}

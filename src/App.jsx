@@ -1,19 +1,14 @@
 import './App.css';
-import Routes1 from './Routes';
+import RoutesApp from './Routes';
+import { Footer } from './components/widgets/Footer';
+import { Navbar } from './components/widgets/Navbar';
 
 function App() {
   return (
     <div>
-      <header>
-        <div id="logo1">
-          <nav>
-            <a href="/"><div className="navi">Home</div></a>
-            <a href="/signin"><div className="navi">Sign In</div></a>
-            <a href="/register"><div className="navi">Register</div></a>
-          </nav>
-        </div>
-      </header>
-      <Routes1 />
+      <Navbar />
+      <RoutesApp />
+      <Footer />
     </div>
   );
 }
