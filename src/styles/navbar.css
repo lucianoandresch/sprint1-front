@@ -1,0 +1,42 @@
+.page-header{
+  height: 60px;
+  background-color: var(--primaryGreen);
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 16px;
+}
+
+.nav-home-icon{
+  padding-left: 16px;
+}
+
+.nav-buttons{
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.nav-button-text{
+  display: inline;
+  text-decoration: none;
+  padding-left: 5px;
+  font-size: 16px;
+  padding-right: 5px;
+}
+
+.nav-button{
+  color: var(--primaryBlack);
+  padding-left: 40px;
+  font-size: 16px;
+}
+
+a:link { text-decoration: none; }
+
+a:visited { text-decoration: none; }
+
+a:hover { text-decoration: none; }
+
+a:active { text-decoration: none; }
