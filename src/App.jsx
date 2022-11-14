@@ -1,13 +1,13 @@
 import './App.css';
-import Routes1 from './Routes';
-import { Footer } from './components/Footer';
-import { Header } from './components/Header';
+import RoutesApp from './Routes';
+import { Footer } from './components/widgets/Footer';
+import { Navbar } from './components/widgets/Navbar';
 
 function App() {
   return (
     <div>
-      <Header />
-      <Routes1 />
+      <Navbar />
+      <RoutesApp />
       <Footer />
     </div>
   );
