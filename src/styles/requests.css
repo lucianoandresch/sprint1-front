@@ -1,0 +1,143 @@
+.view-container{
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  height: fit-content;
+}
+
+.green-container{
+  width: inherit;
+  height: fit-content ;
+  background-color: 'transparent';
+  border-color: var(--secondaryGreen);
+  border-width: 6px;
+  border-radius: 50px;
+  border-style: solid;
+  align-items: left;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  justify-content: space-between;
+  align-self: center;
+}
+
+.title{
+  color: var(--primaryBlue);
+  font-weight: bolder;
+}
+
+.blue-container{
+  border:  1px solid var(--secondaryBlue);
+  border-radius: 10px;
+  background-color: transparent;
+  width: inherit;
+  align-content: flex-start;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  margin: 0px;
+  padding: 5px 10px;
+}
+
+.green-title{
+  color: var(--secondaryGreen);
+  font-weight: bolder;
+}
+
+.pending-msg{
+  color: var(--secondaryBlue);
+}
+
+.accepted-msg{
+  color: var(--terciaryGreen);
+}
+
+.blue-button{
+  background-color: var(--primaryBlue);
+  height: 30px;
+  border-radius: 50px;
+  border-color: transparent;
+  padding: 2px 10px 2px 10px;
+  width: fit-content;
+  box-shadow: 0px;
+  color: var(--primaryWhite);
+  font-size: 16px;
+}
+
+.green-button{
+  background-color: var(--terciaryGreen);
+  height: 30px;
+  border-radius: 50px;
+  border-color: transparent;
+  padding: 2px 10px 2px 10px;
+  width: fit-content;
+  box-shadow: 0px;
+  color: var(--primaryWhite);
+  font-size: 16px;
+}
+
+.red-button{
+  background-color: var(--primaryRed);
+  height: 30px;
+  border-radius: 50px;
+  border-color: transparent;
+  padding: 2px 10px 2px 10px;
+  width: fit-content;
+  box-shadow: 0px;
+  color: var(--primaryWhite);
+  font-size: 16px;
+}
+
+.Collapsible{
+  background-color: transparent;
+  width: inherit;
+}
+
+.row{
+  display: flex;
+  width: inherit;
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  justify-content: space-between;
+  align-self: center;
+}
+
+.description-container{
+  border: 1px solid var(--primaryBlack);
+  padding: 5px;
+  width: inherit;
+}
+
+.row-group{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.column{
+  display: flex;
+  width:inherit;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.items-margin{
+  margin-right: 10px;
+}
+
+.applications{
+  display: flex;
+  width: inherit;
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  justify-content: space-around;
+  align-self: center;
+  padding: 5px;
+}
