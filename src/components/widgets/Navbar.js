@@ -9,20 +9,31 @@ import { FaSignInAlt, FaPen } from 'react-icons/fa';
 
 export const Navbar = () => {
   const notLogged = (
-  <div className="nav-buttons">
-  <a href="/register">
-    <div className="nav-button">
-      <p className="nav-button-text">Registrarse</p>
-      <FaPen />
+    <div className="nav-buttons">
+      <a href="/register">
+        <div className="nav-button">
+          <p className="nav-button-text">Registrarse</p>
+          <FaPen />
+        </div>
+      </a>
+      <a href="/signin">
+        <div className="nav-button">
+          <p className="nav-button-text">Iniciar sesión</p>
+          <FaSignInAlt />
+        </div>
+      </a>
+      <a href="/requestowner">
+        <div className="nav-button">
+          <p className="nav-button-text">Solicitudes(dueño)</p>
+        </div>
+      </a>
+      <a href="/requestdriver">
+        <div className="nav-button">
+          <p className="nav-button-text">Solicitudes(conductor)</p>
+        </div>
+      </a>
     </div>
-  </a>
-  <a href="/signin">
-    <div className="nav-button">
-      <p className="nav-button-text">Iniciar sesión</p>
-      <FaSignInAlt />
-    </div>
-  </a>
-  </div>);
+  );
 
   return (
     <header>
@@ -32,7 +43,7 @@ export const Navbar = () => {
             <img src={logo} alt="logo" height={40} />
           </a>
         </div>
-       {notLogged}
+        {notLogged}
       </div>
     </header>
   );
