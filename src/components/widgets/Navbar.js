@@ -22,10 +22,19 @@ export const Navbar = () => {
           <FaSignInAlt />
         </div>
       </a>
+      <a href="/requestowner">
+        <div className="nav-button">
+          <p className="nav-button-text">Solicitudes(dueño)</p>
+        </div>
+      </a>
+      <a href="/requestdriver">
+        <div className="nav-button">
+          <p className="nav-button-text">Solicitudes(conductor)</p>
+        </div>
+      </a>
       <a href="/driverRegisterRequests">
         <div className="nav-button">
           <p className="nav-button-text">Postulaciones</p>
-          <FaSignInAlt />
         </div>
       </a>
     </div>
