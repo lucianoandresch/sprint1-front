@@ -32,6 +32,11 @@ export const Navbar = () => {
           <p className="nav-button-text">Solicitudes(conductor)</p>
         </div>
       </a>
+      <a href="/driverRegisterRequests">
+        <div className="nav-button">
+          <p className="nav-button-text">Postulaciones</p>
+        </div>
+      </a>
     </div>
   );
 
