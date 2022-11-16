@@ -11,14 +11,18 @@ export default function RoutesApp() {
     <div>
       <Router1>
         <AuthContextProvider>
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/register" element={<Register />} />
-          <Route exact path="/signin" element={<SignIn />} />
-          <Route exact path="/DriverRegisterRequests" element={<DriverRegisterRequests />} />
-        </Routes>
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/register" element={<Register />} />
+            <Route exact path="/signin" element={<SignIn />} />
+            <Route
+              exact
+              path="/DriverRegisterRequests"
+              element={<DriverRegisterRequests />}
+            />
+          </Routes>
         </AuthContextProvider>
-      </Router1> 
+      </Router1>
     </div>
   );
 }
