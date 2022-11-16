@@ -5,11 +5,13 @@ import Register from './components/Register';
 import RequestOwner from './components/RequestOwner';
 import RequestDriver from './components/RequestDriver';
 import { BrowserRouter as Router1, Route, Routes } from 'react-router-dom';
+import AuthContextProvider from './contexts/AuthContext';
 
 export default function RoutesApp() {
   return (
     <div>
       <Router1>
+        <AuthContextProvider>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/register" element={<Register />} />
@@ -17,7 +19,8 @@ export default function RoutesApp() {
           <Route exact path="/requestowner" element={<RequestOwner />} />
           <Route exact path="/requestdriver" element={<RequestDriver />} />
         </Routes>
-      </Router1>
+        </AuthContextProvider>
+      </Router1> 
     </div>
   );
 }
