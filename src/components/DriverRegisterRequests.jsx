@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Deserializer } from 'jsonapi-serializer';
+import useAuth from '../hooks/useAuth';
 
 export default function DriverRegisterRequests() {
-  const requests = [
-    ['Luciano', 'luciano@gmail.com', 1],
-    ['Lucas', 'lucas@gmail.com', 2],
-    ['Monica', 'monica@gmail.com', 3],
-  ];
-  const [error, setError] = useState(false);
+  const { currentUser } = useAuth();
+  //const [error, setError] = useState(false);
   const [message, setMessage] = useState('');
   const [requestz, setRequests] = useState([]);
 
@@ -15,25 +11,30 @@ export default function DriverRegisterRequests() {
     const requestOptions = {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${'currentUser?.access_token'}`,
+        Authorization: `${currentUser?.token}`,
       },
     };
 
-    fetch(`${process.env.REACT_APP_API_URL}/api//`, requestOptions)
-      .then((response) => {
-        if (response.status !== 200) {
-          setMessage(response.text().message);
-          return [];
-        }
-        return response.json();
-      })
-      .then((data) => {
-        new Deserializer({ keyForAttribute: 'camelCase' }).deserialize(
-          data,
-          (_error, requestz) => setRequests(requestz)
-        );
-      });
+    try {
+      fetch(`${process.env.REACT_APP_API_URL}driver/requests`, requestOptions)
+        .then((response) => {
+          if (response.status !== 200) {
+            console.log(response);
+            //setMessage(response.text().message);
+            return [];
+          }
+          return response.json();
+        })
+        .then((json) => {
+          console.log('RESPUESTA', json);
+          setRequests(json.data);
+          console.log('data', json.data);
+          console.log('requestz', requestz);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+    // eslint-disable-next-line
   }, []);
 
   const handleAccept = async (values) => {
@@ -43,11 +44,11 @@ export default function DriverRegisterRequests() {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${'currentUser?.access_token'}`,
       },
-      body: JSON.stringify(values),
+      body: JSON.stringify({ accept: 'true', driver_request_id: values }),
     };
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api//`,
+        `${process.env.REACT_APP_API_URL}driver/accept`,
         requestOptions
       );
       if (response.status !== 201) {
@@ -61,17 +62,19 @@ export default function DriverRegisterRequests() {
   };
 
   const handleReject = async (values) => {
+    console.log('ENTRA A RECHAZAR');
     const requestOptions = {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${'currentUser?.access_token'}`,
+        Authorization: `${'currentUser?.access_token'}`,
       },
-      body: JSON.stringify(values),
+      body: JSON.stringify({ accept: 'false', driver_request_id: values }),
     };
     try {
+      console.log('ENTRA A RECHAZAR');
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api//`,
+        `${process.env.REACT_APP_API_URL}driver/accept`,
         requestOptions
       );
       if (response.status !== 201) {
@@ -79,7 +82,9 @@ export default function DriverRegisterRequests() {
         throw new Error(error);
       }
       setMessage('Request accepted');
+      console.log('STATUS', response.status);
     } catch (error) {
+      console.log(error);
       setMessage(error.message);
     }
   };
@@ -90,17 +95,25 @@ export default function DriverRegisterRequests() {
         <h2>Requests</h2>
       </div>
       <div>
-        {requests.map((req) => (
-          <div>
-            {req[0]}, {req[1]}, {req[2]}
-            <button type="submit" onClick={handleAccept(req)}>
-              Accept
-            </button>
-            <button type="submit" onClick={handleReject(req)}>
-              Reject
-            </button>
+        {requestz.map((req) => (
+          <div key={req.id}>
+            {console.log(req)}
+            {req.firstName}
+            {req.lastName}
+            {req.email}
+            {req.rut}
+            {req.backgorund}
+            {req.birthDate}
+            {req.id}
+            <form onSubmit={() => handleAccept(req.id)}>
+              <input type="submit" value="Aceptar" className="form-submit" />
+            </form>
+            <form onSubmit={() => handleReject(req.id)}>
+              <input type="submit" value="Rechazar" className="form-submit" />
+            </form>
           </div>
         ))}
+        {message}
       </div>
     </div>
   );

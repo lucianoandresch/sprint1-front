@@ -6,10 +6,13 @@ import React from 'react';
 import logo from '../../assets/images/logo.png';
 import '../../styles/navbar.css';
 import { FaSignInAlt, FaPen } from 'react-icons/fa';
+import useAuth from '../../hooks/useAuth';
 
 export const Navbar = () => {
+  const { currentUser, handleUserLogout } = useAuth() || {};
+  console.log('NABAR', currentUser);
   const notLogged = (
-    <div className="nav-buttons">
+    <>
       <a href="/register">
         <div className="nav-button">
           <p className="nav-button-text">Registrarse</p>
@@ -22,13 +25,29 @@ export const Navbar = () => {
           <FaSignInAlt />
         </div>
       </a>
+    </>
+  );
+  const logged = (
+    <>
       <a href="/driverRegisterRequests">
         <div className="nav-button">
           <p className="nav-button-text">Postulaciones</p>
           <FaSignInAlt />
         </div>
       </a>
-    </div>
+      <a href="/">
+        <div className="nav-button">
+          <button
+            type="submit"
+            className="nav-button-text"
+            onClick={() => handleUserLogout()}
+          >
+            Salir
+          </button>
+          <FaSignInAlt />
+        </div>
+      </a>
+    </>
   );
 
   return (
@@ -39,7 +58,10 @@ export const Navbar = () => {
             <img src={logo} alt="logo" height={40} />
           </a>
         </div>
-        {notLogged}
+        <div className="nav-buttons">
+          {notLogged}
+          {logged}
+        </div>
       </div>
     </header>
   );
