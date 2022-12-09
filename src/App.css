@@ -5,6 +5,7 @@
   --secondaryGreen: #82A133;
   --primaryWhite: #FFFFFF;
   --primaryBlack: #000000;
+  --primaryRed: #C00303;
 }
 
 /* LOGIN */
@@ -34,6 +35,24 @@
 
 .login-image{
   width: 450px;
+}
+
+.horizontal-div{
+  display: flex;
+  flex-direction: row;
+  padding: 40px;
+  justify-content: space-between;
+  align-self: center;
+  align-items: center;
+  text-align: center;
+  width: 80%;
+  height: 50%;
+  background-color: 'transparent';
+  border-color: var(--secondaryGreen);
+  border-width: 6px;
+  border-radius: 50px;
+  border-style: solid;
+  align-items: center;
 }
 
 .login-view {

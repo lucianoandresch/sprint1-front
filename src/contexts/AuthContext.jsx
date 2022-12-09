@@ -33,8 +33,8 @@ const AuthContextProvider = ({ children }) => {
   }, [clearSessionExpDate, clearStoredUser, navigate]);
 
   useEffect(() => {
-    console.log('context', currentUser);
     if (currentUser && sessionExpDate) {
+      console.log('USER', currentUser);
       const remainingTime =
         new Date(sessionExpDate).getTime() - new Date().getTime();
       logoutTimer = setTimeout(handleAutomaticLogout, remainingTime);
