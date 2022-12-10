@@ -155,6 +155,12 @@ export default function DriverRegisterRequests() {
     </div>
   ));
 
+  const noRequests = requestz.length === 0 && (
+    <>
+      <p>No hay solicitudes pendientes</p>
+    </>
+  );
+
   return (
     <>
       <Navbar />
@@ -163,6 +169,7 @@ export default function DriverRegisterRequests() {
         <div className="green-container">
           <h2 className="green-title">Postulaciones pendientes</h2>
           {allRequests}
+          {noRequests}
           {message}
         </div>
       </div>

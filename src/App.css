@@ -102,6 +102,7 @@
   border-color: var(--primaryBlack);
   border-width: 1px;
   padding: 5px; 
+  margin-right: 16px;
 }
 /* FOOTER */
 .footer-container{
@@ -203,4 +204,107 @@
 .home-group6{
   font-size: 22px;
   font-weight: 300;
+}
+
+.large-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primaryBlue);
+  height: 40px;
+  border-radius: 50px;
+  border-color: transparent;
+  width: 460px;
+  box-shadow: 0px;
+  color: var(--primaryWhite);
+  font-size: 16px;
+  margin: 20px;
+}
+
+.register{
+  justify-content: justify;
+}
+
+.blue-subtitle{
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--primaryBlue);
+  margin-left: -32px;
+}
+
+.column{
+  display: flex;
+  flex-direction: column;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+  width: 1000px;
+}
+
+.secondary-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--secondaryBlue);
+  height: 25px;
+  border-radius: 50px;
+  border-color: transparent;
+  width: 160px;
+  box-shadow: 0px;
+  color: var(--primaryWhite);
+  font-size: 14px;
+  margin: 20px;
+}
+
+.form-text-field{
+  background-color: var(--primaryWhite);
+  height: 20px;
+  width: 350px;
+  border-color: var(--primaryBlack);
+  border-width: 1px;
+  padding: 5px; 
+}
+
+.left-align{
+  display: flex;
+  align-items: left;
+  justify-content: flex-start;
+  text-align: left;
+  align-content: flex-start;
+}
+
+.form-bottom-right-image{
+  position: absolute;
+  bottom: 150px;
+  right: 100px;
+}
+
+.form-corner-image{
+  width: 300px;
+  height: auto;
+}
+
+.space-between{
+  justify-content: space-between;
+  width: 1000px;
+}
+
+.register-div{
+  display: flex;
+  flex-direction: row;
+  padding: 40px;
+  justify-content: space-between;
+  align-self: center;
+  align-items: center;
+  text-align: center;
+  width: 80%;
+  height: 50%;
+  background-color: 'transparent';
+  border-color: var(--secondaryGreen);
+  border-width: 6px;
+  border-radius: 50px;
+  border-style: solid;
+  align-items: center;
 }

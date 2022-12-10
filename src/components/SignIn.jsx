@@ -16,7 +16,6 @@ export default function SignIn() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const { currentUser, handleUserLogin } = useAuth();
-  //const navigate = useNavigate();
 
   const handleSubmit = async function handleSubmit(event) {
     setLoading(true);
