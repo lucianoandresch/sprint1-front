@@ -34,19 +34,7 @@ export default function RequestOwner() {
     }
     // eslint-disable-next-line
   }, []);
-  const pendingRequests = [
-    {
-      id: 341,
-      description:
-        'Para un auto Suzuki blanco, se solicita llevarlo a revisión',
-      payed: true,
-    },
-    {
-      id: 342,
-      description: 'Para un auto Suzuki rosa, se solicita llevarlo a revisión',
-      payed: false,
-    },
-  ];
+
   const detailDropUp = (
     <div className="row">
       <p> Ver detalles </p>
@@ -60,6 +48,54 @@ export default function RequestOwner() {
     </div>
   );
 
+  const handleAccept = async (values) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: currentUser?.token,
+      },
+      body: JSON.stringify({ car_request_id: values }),
+    };
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}postulation`,
+        requestOptions
+      );
+      if (response.status !== 201) {
+        console.log(response.status);
+        const error = await response.text();
+        throw new Error(error);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleRequest = async (values, statusRequest) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: currentUser?.token,
+      },
+      body: JSON.stringify({ postulation_id: values, status: statusRequest }),
+    };
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}postulation/update`,
+        requestOptions
+      );
+      if (response.status !== 201) {
+        console.log(response.status);
+        const error = await response.text();
+        throw new Error(error);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const pendingTrigger = (request) => {
     return (
       <div className="row">
@@ -69,7 +105,11 @@ export default function RequestOwner() {
     );
   };
 
-  const pending = requestz.map((request) => (
+  const pendingRequests = requestz.filter((item) => {
+    return item.status === 'pendiente';
+  });
+
+  const pending = pendingRequests.map((request) => (
     <div className="blue-container">
       <Collapsible
         trigger={
@@ -111,7 +151,15 @@ export default function RequestOwner() {
     );
   };
 
-  const accepted = pendingRequests.map((request) => (
+  const acceptedRequests = requestz.filter((item) => {
+    return (
+      item.status === 'aceptada' ||
+      item.status === 'pagada' ||
+      item.status === 'completada'
+    );
+  });
+
+  const accepted = acceptedRequests.map((request) => (
     <div className="blue-container">
       <Collapsible
         trigger={
@@ -127,22 +175,41 @@ export default function RequestOwner() {
           </div>
         }
       >
-        <p className="description-container">{request.description}</p>
+        <p className="description-container">{`Se necesita llevar a revisión técnica mi auto
+        ${request.carModel}(${request.car}), estoy dispuesto(a) a pagar $${request.price},
+        necesito que se cumpla esta solicitud a más tardar ${request.expirationDate}, y que
+        se retire en la dirección ${request.address}.`}</p>
+        <p className="description-container">
+          NOTA: {request.extraRequeriments}.
+        </p>
       </Collapsible>
     </div>
   ));
+
+  const driverRequest = requestz.filter((item) => {
+    return (
+      item.status !== 'aceptada' ||
+      item.status !== 'pagada' ||
+      item.status !== 'completada'
+    );
+  });
 
   const allRequestsTrigger = (request) => {
     return (
       <div className="row-group">
         <p className="items-margin">Solicitud #{request.id}</p>
-        <button className="blue-button items-margin"> Postular</button>
+        <button
+          className="blue-button items-margin"
+          onClick={() => handleAccept(request.id)}
+        >
+          Postular
+        </button>
       </div>
     );
   };
 
-  const allRequests = pendingRequests.map((request) => (
-    <div className="blue-container">
+  const allRequests = driverRequest.map((request) => (
+    <div className="blue-container" id={request.id}>
       <Collapsible
         trigger={
           <div className="row">
@@ -157,7 +224,13 @@ export default function RequestOwner() {
           </div>
         }
       >
-        <p className="description-container">{request.description}</p>
+        <p className="description-container">{`Se necesita llevar a revisión técnica mi auto
+        ${request.carModel}(${request.car}), estoy dispuesto(a) a pagar $${request.price},
+        necesito que se cumpla esta solicitud a más tardar ${request.expirationDate}, y que
+        se retire en la dirección ${request.address}.`}</p>
+        <p className="description-container">
+          NOTA: {request.extraRequeriments}.
+        </p>
       </Collapsible>
     </div>
   ));

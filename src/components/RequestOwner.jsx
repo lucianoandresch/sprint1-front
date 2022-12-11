@@ -58,6 +58,31 @@ export default function RequestOwner() {
       ],
     },
   ];
+
+  const handleRequest = async (values, statusRequest) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: currentUser?.token,
+      },
+      body: JSON.stringify({ postulation_id: values, status: statusRequest }),
+    };
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}postulation/update`,
+        requestOptions
+      );
+      if (response.status !== 201) {
+        console.log(response.status);
+        const error = await response.text();
+        throw new Error(error);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const detailDropUp = (
     <div className="row">
       <p> Ver detalles </p>
