@@ -5,7 +5,13 @@
 import React from 'react';
 import logo from '../../assets/images/logo.png';
 import '../../styles/navbar.css';
-import { FaSignInAlt, FaPen, FaCarAlt, FaUserCircle } from 'react-icons/fa';
+import {
+  FaSignInAlt,
+  FaPen,
+  FaCarAlt,
+  FaUserCircle,
+  FaClipboardList,
+} from 'react-icons/fa';
 import useAuth from '../../hooks/useAuth';
 
 export const Navbar = () => {
@@ -43,10 +49,36 @@ export const Navbar = () => {
   ) : (
     <></>
   );
-  const notAdminLogged = currentUser ? (
-    currentUser.userType !== 'admin' && (
+  const driverLogged = currentUser ? (
+    currentUser.userType === 'driver' && (
       <>
-        <a href="/">
+        <a href="/requestdriver">
+          <div className="nav-button">
+            <p className="nav-button-text">Solicitudes</p>
+            <FaClipboardList />
+          </div>
+        </a>
+        <a href="/profiledriver">
+          <div className="nav-button">
+            <p className="nav-button-text">Perfil</p>
+            <FaUserCircle />
+          </div>
+        </a>
+      </>
+    )
+  ) : (
+    <></>
+  );
+  const ownerLogged = currentUser ? (
+    currentUser.userType === 'owner' && (
+      <>
+        <a href="/requestowner">
+          <div className="nav-button">
+            <p className="nav-button-text">Solicitudes</p>
+            <FaClipboardList />
+          </div>
+        </a>
+        <a href="/profileowner">
           <div className="nav-button">
             <p className="nav-button-text">Perfil</p>
             <FaUserCircle />
@@ -79,7 +111,8 @@ export const Navbar = () => {
         <div className="nav-buttons">
           {notLogged}
           {adminLogged}
-          {notAdminLogged}
+          {driverLogged}
+          {ownerLogged}
           {logged}
         </div>
       </div>

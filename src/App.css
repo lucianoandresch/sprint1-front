@@ -103,6 +103,7 @@
   border-width: 1px;
   padding: 5px; 
   margin-right: 16px;
+  margin-left: 16px;
 }
 /* FOOTER */
 .footer-container{
@@ -229,7 +230,8 @@
   font-size: 22px;
   font-weight: bold;
   color: var(--primaryBlue);
-  margin-left: -32px;
+  text-align: left;
+  margin-left: 16px;
 }
 
 .column{
@@ -240,6 +242,7 @@
 .row{
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
   width: 1000px;
 }
 
@@ -276,13 +279,14 @@
 }
 
 .form-bottom-right-image{
-  position: absolute;
-  bottom: 150px;
-  right: 100px;
+  position: relative;
+  top: 180px;
+  width: 0px;
+  left: -120px;
 }
 
 .form-corner-image{
-  width: 300px;
+  width: 200px;
   height: auto;
 }
 
@@ -294,17 +298,42 @@
 .register-div{
   display: flex;
   flex-direction: row;
-  padding: 40px;
+  padding: 12px;
   justify-content: space-between;
   align-self: center;
   align-items: center;
   text-align: center;
-  width: 80%;
-  height: 50%;
+  width: fit-content;
+  height: 400px;
   background-color: 'transparent';
   border-color: var(--secondaryGreen);
   border-width: 6px;
   border-radius: 50px;
   border-style: solid;
   align-items: center;
+}
+
+.register-label{
+  color: var(--primaryBlack);
+  text-align: left;
+  font-size: 16px;
+  margin-left: 16px;
+  padding: 0px;
+  margin-bottom: 2px;
+}
+
+.right-bottom{
+  margin-left: 16px;
+  margin-top: 16px;
+}
+
+.form-label{
+  color: var(--primaryBlack);
+  text-align: left;
+  font-size: 16px;
+  margin-left: 16px;
+}
+
+.empty-div-footer{
+  height: 10%;
 }

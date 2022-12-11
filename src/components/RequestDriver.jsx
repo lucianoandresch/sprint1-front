@@ -1,10 +1,39 @@
-import React from 'react';
-import '../styles/requests.css';
+import React, { useEffect, useState } from 'react';
 import Collapsible from 'react-collapsible';
-import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import useAuth from '../hooks/useAuth';
+import '../styles/requests.css';
 import { Navbar } from './widgets/Navbar';
 
 export default function RequestOwner() {
+  const { currentUser } = useAuth();
+  const [requestz, setRequests] = useState([]);
+
+  useEffect(() => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        Authorization: currentUser?.token,
+      },
+    };
+
+    try {
+      fetch(`${process.env.REACT_APP_API_URL}car/requests`, requestOptions)
+        .then((response) => {
+          if (response.status !== 200) {
+            return [];
+          }
+          return response.json();
+        })
+        .then((json) => {
+          setRequests(json.data);
+          console.log('REQUESTZ', requestz);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+    // eslint-disable-next-line
+  }, []);
   const pendingRequests = [
     {
       id: 341,
@@ -40,7 +69,7 @@ export default function RequestOwner() {
     );
   };
 
-  const pending = pendingRequests.map((request) => (
+  const pending = requestz.map((request) => (
     <div className="blue-container">
       <Collapsible
         trigger={
@@ -56,7 +85,13 @@ export default function RequestOwner() {
           </div>
         }
       >
-        <p className="description-container">{request.description}</p>
+        <p className="description-container">{`Se necesita llevar a revisión técnica mi auto
+        ${request.carModel}(${request.car}), estoy dispuesto(a) a pagar $${request.price},
+        necesito que se cumpla esta solicitud a más tardar ${request.expirationDate}, y que
+        se retire en la dirección ${request.address}.`}</p>
+        <p className="description-container">
+          NOTA: {request.extraRequeriments}.
+        </p>
       </Collapsible>
     </div>
   ));

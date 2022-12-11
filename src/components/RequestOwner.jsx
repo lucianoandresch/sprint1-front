@@ -1,16 +1,52 @@
-import React from 'react';
-import '../styles/requests.css';
+import React, { useEffect, useState } from 'react';
 import Collapsible from 'react-collapsible';
-import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import useAuth from '../hooks/useAuth';
+import '../styles/requests.css';
 import { Navbar } from './widgets/Navbar';
 
 export default function RequestOwner() {
+  const { currentUser } = useAuth();
+  const [requestz, setRequests] = useState([]);
+
+  useEffect(() => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        Authorization: currentUser?.token,
+      },
+    };
+
+    try {
+      fetch(`${process.env.REACT_APP_API_URL}car/requests`, requestOptions)
+        .then((response) => {
+          if (response.status !== 200) {
+            return [];
+          }
+          return response.json();
+        })
+        .then((json) => {
+          console.log('JSON', json);
+          console.log('REQUESTS', requestz);
+          setRequests(json.data);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+    // eslint-disable-next-line
+  }, []);
   const pendingRequests = [
     {
       id: 341,
       description:
         'Para un auto Suzuki blanco, se solicita llevarlo a revisión',
       payed: true,
+      car: 'XY1960',
+      price: 45000,
+      carModel: 'Suzuki blanco',
+      extraRequeriments: 'Tener cuidado con la pintura',
+      expirationDate: '2023/03/02',
+      address: 'Psje. Universidad 7569',
     },
     {
       id: 342,
@@ -129,18 +165,28 @@ export default function RequestOwner() {
     </div>
   ));
 
+  const newRequestButton = (
+    <a href="/newrequest">
+      <div className="blue-button new-button">
+        <p className="nav-button-text">Nueva solicitud</p>
+      </div>
+    </a>
+  );
+
   return (
     <>
       <Navbar />
       <div className="view-container">
         <h1 className="title">SOLICITUDES</h1>
-        <div className="green-container">
+        {newRequestButton}
+        <div className="register-div column">
           <h2 className="green-title">Solicitudes Pendientes</h2>
           {pending}
           <h2 className="green-title">Solicitudes Aceptadas</h2>
           {accepted}
         </div>
       </div>
+      <div className="empty-div-footer"></div>
     </>
   );
 }

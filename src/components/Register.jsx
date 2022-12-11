@@ -12,7 +12,7 @@ export default function CategoryDetail() {
       <Navbar />
       <div className="login-view">
         <h2 className="login-title">Registro</h2>
-        <div className="horizontal-div">
+        <div className="register-div">
           <div>
             <img src={loginImage} alt="login_image" className="login-image" />
           </div>

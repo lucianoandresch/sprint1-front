@@ -10,7 +10,6 @@ export default function DriverRegisterRequests() {
   //const [error, setError] = useState(false);
   const [message, setMessage] = useState('');
   const [requestz, setRequests] = useState([]);
-  console.log('USER-BLA', currentUser?.token);
 
   useEffect(() => {
     const requestOptions = {
@@ -66,7 +65,6 @@ export default function DriverRegisterRequests() {
   };
 
   const handleReject = async (values) => {
-    console.log('ENTRA A RECHAZAR');
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -76,7 +74,6 @@ export default function DriverRegisterRequests() {
       body: JSON.stringify({ accept: 'false', driver_request_id: values }),
     };
     try {
-      console.log('ENTRA A RECHAZAR');
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}driver/accept`,
         requestOptions
@@ -108,7 +105,7 @@ export default function DriverRegisterRequests() {
 
   const requestDetail = (req) => (
     <div className="description-container">
-      <p>{`El usuario ${req.firstName} ${req.lastName}(RUT ${req.rut}) de email ${req.email}, fecha de nacimiento ${req.birthDate} quiere registrarse como conductor`}</p>
+      <p>{`El usuario ${req.firstName} ${req.lastName}(RUT ${req.rut}) de email ${req.email}, fecha de nacimiento ${req.birthDate} quiere registrarse como chofer.`}</p>
       <p>Sus antecedentes se pueden ver en el siguiente archivo:</p>
       <p>{req.background}</p>
     </div>
@@ -166,13 +163,14 @@ export default function DriverRegisterRequests() {
       <Navbar />
       <div className="view-container">
         <h1 className="title">POSTULACIONES</h1>
-        <div className="green-container">
+        <div className="register-div column">
           <h2 className="green-title">Postulaciones pendientes</h2>
           {allRequests}
           {noRequests}
           {message}
         </div>
       </div>
+      <div className="empty-div-footer"></div>
     </>
   );
 }

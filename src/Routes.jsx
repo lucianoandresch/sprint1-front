@@ -9,6 +9,7 @@ import RequestOwner from './components/RequestOwner';
 import RequestDriver from './components/RequestDriver';
 import RegisterDriver from './components/RegisterDriver';
 import RegisterOwner from './components/RegisterOwner';
+import NewRequest from './components/newRequest';
 export default function RoutesApp() {
   return (
     <div>
@@ -27,6 +28,7 @@ export default function RoutesApp() {
             />
             <Route exact path="/requestowner" element={<RequestOwner />} />
             <Route exact path="/requestdriver" element={<RequestDriver />} />
+            <Route exact path="/newrequest" element={<NewRequest />} />
           </Routes>
         </AuthContextProvider>
       </Router1>

@@ -140,3 +140,42 @@
   align-self: center;
   padding: 5px;
 }
+
+.nav-button-text{
+  display: inline;
+  text-decoration: none;
+  padding-left: 5px;
+  font-size: 16px;
+  padding-right: 5px;
+}
+
+.new-button{
+  padding-top: 10px;
+  font-size: 16px;
+  align-items: right;
+  align-self: right;
+  margin-bottom: 10px;
+}
+
+.register-div{
+  display: flex;
+  flex-direction: row;
+  padding: 12px;
+  justify-content: space-between;
+  align-self: center;
+  align-items: center;
+  text-align: center;
+  width: fit-content;
+  height: fit-content;
+  background-color: 'transparent';
+  border-color: var(--secondaryGreen);
+  border-width: 6px;
+  border-radius: 50px;
+  border-style: solid;
+  align-items: center;
+}
+
+.column{
+  display: flex;
+  flex-direction: column;
+}
