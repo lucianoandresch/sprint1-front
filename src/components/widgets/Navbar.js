@@ -58,12 +58,6 @@ export const Navbar = () => {
             <FaClipboardList />
           </div>
         </a>
-        <a href="/profiledriver">
-          <div className="nav-button">
-            <p className="nav-button-text">Perfil</p>
-            <FaUserCircle />
-          </div>
-        </a>
       </>
     )
   ) : (
@@ -76,12 +70,6 @@ export const Navbar = () => {
           <div className="nav-button">
             <p className="nav-button-text">Solicitudes</p>
             <FaClipboardList />
-          </div>
-        </a>
-        <a href="/profileowner">
-          <div className="nav-button">
-            <p className="nav-button-text">Perfil</p>
-            <FaUserCircle />
           </div>
         </a>
       </>
@@ -97,6 +85,12 @@ export const Navbar = () => {
           <FaSignInAlt />
         </div>
       </a>
+      <a href="/account">
+          <div className="nav-button">
+            <p className="nav-button-text">Perfil</p>
+            <FaUserCircle />
+          </div>
+        </a>
     </>
   );
 

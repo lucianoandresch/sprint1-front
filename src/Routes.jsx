@@ -10,6 +10,8 @@ import RequestDriver from './components/RequestDriver';
 import RegisterDriver from './components/RegisterDriver';
 import RegisterOwner from './components/RegisterOwner';
 import NewRequest from './components/newRequest';
+import Perfil from './components/Account';
+
 export default function RoutesApp() {
   return (
     <div>
@@ -26,6 +28,7 @@ export default function RoutesApp() {
               path="/DriverRegisterRequests"
               element={<DriverRegisterRequests />}
             />
+            <Route exact path="/account" element={<Perfil />} />
             <Route exact path="/requestowner" element={<RequestOwner />} />
             <Route exact path="/requestdriver" element={<RequestDriver />} />
             <Route exact path="/newrequest" element={<NewRequest />} />
