@@ -67,7 +67,7 @@
 }
 
 .green-button {
-  background-color: var(--terciaryGreen);
+  background-color: var(--primaryBlack);
   height: 30px;
   border-radius: 50px;
   border-color: transparent;

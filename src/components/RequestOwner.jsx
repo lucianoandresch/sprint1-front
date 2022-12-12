@@ -8,8 +8,9 @@ import { Navbar } from './widgets/Navbar';
 export default function RequestOwner() {
   const { currentUser } = useAuth();
   const [requestz, setRequests] = useState([]);
+  const [applications, setApplications] = useState([]);
 
-  useEffect(() => {
+  const fetchRequests = (async () => {
     const requestOptions = {
       method: 'GET',
       headers: {
@@ -18,7 +19,7 @@ export default function RequestOwner() {
     };
 
     try {
-      fetch(`${process.env.REACT_APP_API_URL}car/requests`, requestOptions)
+      fetch(`${process.env.REACT_APP_API_URL}owner/car_requests`, requestOptions)
         .then((response) => {
           if (response.status !== 200) {
             return [];
@@ -27,37 +28,45 @@ export default function RequestOwner() {
         })
         .then((json) => {
           console.log('JSON', json);
-          console.log('REQUESTS', requestz);
           setRequests(json.data);
+          console.log('REQUESTS', requestz);
         });
     } catch (error) {
       console.log(error);
     }
+  });
+
+  const fetchApplications = (async () => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        Authorization: currentUser?.token,
+      },
+    };
+
+    try {
+      fetch(`${process.env.REACT_APP_API_URL}owner/postulations`, requestOptions)
+        .then((response) => {
+          if (response.status !== 200) {
+            return [];
+          }
+          return response.json();
+        })
+        .then((json) => {
+          console.log('JSON', json);
+          setApplications(json.data);
+          console.log('APPLICATIONS', applications);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  useEffect(() => {
+    fetchRequests()
+    fetchApplications()
     // eslint-disable-next-line
   }, []);
-  const pendingRequests = [
-    {
-      id: 341,
-      description:
-        'Para un auto Suzuki blanco, se solicita llevarlo a revisión',
-      payed: true,
-      car: 'XY1960',
-      price: 45000,
-      carModel: 'Suzuki blanco',
-      extraRequeriments: 'Tener cuidado con la pintura',
-      expirationDate: '2023/03/02',
-      address: 'Psje. Universidad 7569',
-    },
-    {
-      id: 342,
-      description: 'Para un auto Suzuki rosa, se solicita llevarlo a revisión',
-      payed: false,
-      applications: [
-        { name: 'Juan', accountId: 2 },
-        { name: 'Lucas', accountId: 3 },
-      ],
-    },
-  ];
 
   const handleRequest = async (values, statusRequest) => {
     const requestOptions = {
@@ -91,7 +100,7 @@ export default function RequestOwner() {
   );
   const detailDropDown = (
     <div className="row">
-      <p className="items-margin"> Ver detalles </p>
+      <p className="items-margin"> | Ver detalles </p>
       <FaChevronDown />
     </div>
   );
@@ -130,7 +139,13 @@ export default function RequestOwner() {
     );
   };
 
-  const pending = pendingRequests.map((request) => (
+  const pendingApps = applications.filter((item) => {
+    return (
+      item.user_id === currentUser.id
+    );
+  });
+
+  const pending = requestz.map((request) => (
     <div className="blue-container">
       <Collapsible
         trigger={
@@ -147,8 +162,10 @@ export default function RequestOwner() {
         }
       >
         <div>
-          <p className="description-container">{request.description}</p>
-          {request.applications ? applicationsList(request.applications) : ''}
+          <p className="description-container"> Para un auto {request.carModel} se solicita llevarlo a revisión.</p>
+          <p className="description-container">{request.extraRequeriments}</p>
+          <p className="description-container"> Se necesita que se haga antes de {request.expirationDate}</p>
+          {applications ? applicationsList(applications) : ''}
         </div>
       </Collapsible>
     </div>
@@ -169,7 +186,15 @@ export default function RequestOwner() {
     );
   };
 
-  const accepted = pendingRequests.map((request) => (
+  const acceptedRequests = requestz.filter((item) => {
+    return (
+      item.status !== 'aceptada' ||
+      item.status !== 'pagada' ||
+      item.status !== 'completada'
+    );
+  });
+
+  const accepted = acceptedRequests.map((request) => (
     <div className="blue-container">
       <Collapsible
         trigger={
@@ -185,7 +210,7 @@ export default function RequestOwner() {
           </div>
         }
       >
-        <p className="description-container">{request.description}</p>
+        <p className="description-container">{request.price}</p>
       </Collapsible>
     </div>
   ));

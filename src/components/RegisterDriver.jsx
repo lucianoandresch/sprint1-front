@@ -135,22 +135,6 @@ export default function RegisterDriver(args) {
                       />
                     </label>
                   </div>
-                  <div className="row left-align">
-                    <label>
-                      <p className="register-label">Documentos</p>
-                      <input
-                        className="form-text-field"
-                        type="text"
-                        id="background"
-                        name="background"
-                        value={values.background}
-                        onChange={handleChange}
-                      />
-                    </label>
-                    <button className="secondary-button">
-                      Adjuntar archivo
-                    </button>
-                  </div>
                   <button type="submit" className="form-submit">
                     Registrarse
                   </button>

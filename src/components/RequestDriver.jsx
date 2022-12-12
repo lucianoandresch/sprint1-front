@@ -5,7 +5,7 @@ import useAuth from '../hooks/useAuth';
 import '../styles/requests.css';
 import { Navbar } from './widgets/Navbar';
 
-export default function RequestOwner() {
+export default function RequestDriver() {
   const { currentUser } = useAuth();
   const [requestz, setRequests] = useState([]);
 
