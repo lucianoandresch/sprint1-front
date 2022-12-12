@@ -1,138 +1,156 @@
 import React, { useState } from 'react';
-const initialValues = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    rut: '',
-    background: '',
-    userType: 'owner',
-    
-  };
+import { Navbar } from './widgets/Navbar';
+import loginImage from '../assets/login_car.png';
 
-  export default function Newcat(args) {
-    const [values, setValues] = useState(initialValues);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-    // const {fatherid} = args;
-    
-    
-  
-    const handleSubmit = async function handleSubmit(event) {
-      event.preventDefault();
-      const requestOptions = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ...values }),
-      };
-      fetch('http://localhost:3000/users', requestOptions)
-        .then((response) => {
-          if (!response.ok) {
-            setError(true);
-            return {};
-          }
-          window.location.reload(false);
-          return response.json();
-        })
-        // .then((data) => {
-        // new Deserializer({ keyForAttribute: 'camelCase' })
-        // .deserialize(data, (_error, prop) => setProperties((prevState) => [...prevState, prop]));
-        // })
-        .catch(() => {
+const initialValues = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  birthDate: '',
+  rut: '',
+  userType: 'owner',
+};
+
+export default function RegisterOwner(args) {
+  const [values, setValues] = useState(initialValues);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const handleSubmit = async function handleSubmit(event) {
+    event.preventDefault();
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ...values }),
+    };
+    fetch(`${process.env.REACT_APP_API_URL}users`, requestOptions)
+      .then((response) => {
+        if (!response.ok) {
           setError(true);
-          setValues(initialValues);
-        })
-        .finally(() => setLoading(false));
-    };
-    // values.father_id = fatherid;
-    const handleChange = function handleChange(event) {
-      setValues((prevValues) => ({
-        ...prevValues,
-        [event.target.name]: event.target.value,
-      }));
-    };
-    // let isDisabled = true;
-    /* if (values.name && values.description) {
-      isDisabled = false;
-    }*/
-    if (loading) {
-      return <h2>Loading...</h2>;
-    }
-    return (
-      <div className="titulo">
-        <h2>Registrarse como owner</h2>
-        <form onSubmit={handleSubmit}>
-          <div>
-            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="firstName">firstName:</label>
-            <input
-              type="text"
-              id="firstName"
-              name="firstName"
-              value={values.firstName}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="lastName">lastName:</label>
-            <input
-              type="text"
-              id="lastName"
-              name="lastName"
-              value={values.lastName}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="email">email:</label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              value={values.email}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="password">password:</label>
-            <input
-              type="text"
-              id="password"
-              name="password"
-              value={values.password}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="rut">rut:</label>
-            <input
-              type="text"
-              id="rut"
-              name="rut"
-              value={values.rut}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="background">background:</label>
-            <input
-              type="text"
-              id="background"
-              name="background"
-              value={values.background}
-              onChange={handleChange}
-            />
-          </div>
-          <button type="submit">Crear</button>
-          {error && <p>Algo malo sucedió. Probar nuevamente.</p>}
-        </form>
-      </div>
-    );
+          return {};
+        }
+        window.location.reload(false);
+        return response.json();
+      })
+      .catch((err) => {
+        setError(true);
+        console.log(err);
+        setValues(initialValues);
+      })
+      .finally(() => setLoading(false));
+  };
+  const handleChange = function handleChange(event) {
+    setValues((prevValues) => ({
+      ...prevValues,
+      [event.target.name]: event.target.value,
+    }));
+  };
+  if (loading) {
+    return <h2>Loading...</h2>;
   }
+  return (
+    <>
+      <Navbar />
+      <div>
+        <div className="login-view">
+          <h2 className="login-title">DUEÑO</h2>
+          <div className="register-div">
+            <div className="column left-align">
+              <div>
+                <h2 className="blue-subtitle">Registro</h2>
+                <form onSubmit={handleSubmit}>
+                  <div className="row space-between">
+                    <label>
+                      <p className="register-label">Nombre</p>
+                      <input
+                        className="form-text-field"
+                        type="text"
+                        id="firstName"
+                        name="firstName"
+                        value={values.firstName}
+                        onChange={handleChange}
+                      />
+                    </label>
+                    <label>
+                      <p className="register-label">Apellido</p>
+                      <input
+                        className="form-text-field"
+                        type="text"
+                        id="lastName"
+                        name="lastName"
+                        value={values.lastName}
+                        onChange={handleChange}
+                      />
+                    </label>
+                  </div>
+                  <div className="row space-between">
+                    <label>
+                      <p className="register-label">Email</p>
+                      <input
+                        type="text"
+                        value={values.email}
+                        onChange={handleChange}
+                        name="email"
+                        id="email"
+                        className="form-text-field"
+                      />
+                    </label>
+                    <label>
+                      <p className="register-label">Contraseña</p>
+                      <input
+                        type="password"
+                        value={values.password}
+                        onChange={handleChange}
+                        id="password"
+                        name="password"
+                        className="form-text-field"
+                      />
+                    </label>
+                  </div>
+                  <div className="row space-between">
+                    <label>
+                      <p className="register-label">RUT</p>
+                      <input
+                        className="form-text-field"
+                        type="text"
+                        id="rut"
+                        name="rut"
+                        value={values.rut}
+                        onChange={handleChange}
+                      />
+                    </label>
+                    <label>
+                      <p className="register-label">Fecha de nacimiento</p>
+                      <input
+                        className="form-text-field"
+                        type="date"
+                        id="birthDate"
+                        name="birthDate"
+                        value={values.birthDate}
+                        onChange={handleChange}
+                      />
+                    </label>
+                  </div>
+                  <button type="submit" className="form-submit">
+                    Registrarse
+                  </button>
+                  {error && <p>Algo malo sucedió. Probar nuevamente.</p>}
+                </form>
+              </div>
+            </div>
+            <div className="form-bottom-right-image">
+              <img
+                src={loginImage}
+                alt="login_image"
+                className="form-corner-image"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}

@@ -1,26 +1,97 @@
-import React from 'react';
-import '../styles/requests.css';
+import React, { useEffect, useState } from 'react';
 import Collapsible from 'react-collapsible';
-import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import useAuth from '../hooks/useAuth';
+import '../styles/requests.css';
+import { Navbar } from './widgets/Navbar';
 
 export default function RequestOwner() {
-  const pendingRequests = [
-    {
-      id: 341,
-      description:
-        'Para un auto Suzuki blanco, se solicita llevarlo a revisión',
-      payed: true,
-    },
-    {
-      id: 342,
-      description: 'Para un auto Suzuki rosa, se solicita llevarlo a revisión',
-      payed: false,
-      applications: [
-        { name: 'Juan', accountId: 2 },
-        { name: 'Lucas', accountId: 3 },
-      ],
-    },
-  ];
+  const { currentUser } = useAuth();
+  const [requestz, setRequests] = useState([]);
+  const [applications, setApplications] = useState([]);
+
+  const fetchRequests = (async () => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        Authorization: currentUser?.token,
+      },
+    };
+
+    try {
+      fetch(`${process.env.REACT_APP_API_URL}owner/car_requests`, requestOptions)
+        .then((response) => {
+          if (response.status !== 200) {
+            return [];
+          }
+          return response.json();
+        })
+        .then((json) => {
+          console.log('JSON', json);
+          setRequests(json.data);
+          console.log('REQUESTS', requestz);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  const fetchApplications = (async () => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        Authorization: currentUser?.token,
+      },
+    };
+
+    try {
+      fetch(`${process.env.REACT_APP_API_URL}owner/postulations`, requestOptions)
+        .then((response) => {
+          if (response.status !== 200) {
+            return [];
+          }
+          return response.json();
+        })
+        .then((json) => {
+          console.log('JSON', json);
+          setApplications(json.data);
+          console.log('APPLICATIONS', applications);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  useEffect(() => {
+    fetchRequests()
+    fetchApplications()
+    // eslint-disable-next-line
+  }, []);
+
+  const handleRequest = async (values, statusRequest) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: currentUser?.token,
+      },
+      body: JSON.stringify({ postulation_id: values, status: statusRequest }),
+    };
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}postulation/update`,
+        requestOptions
+      );
+      if (response.status !== 201) {
+        console.log(response.status);
+        const error = await response.text();
+        throw new Error(error);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const detailDropUp = (
     <div className="row">
       <p> Ver detalles </p>
@@ -29,7 +100,7 @@ export default function RequestOwner() {
   );
   const detailDropDown = (
     <div className="row">
-      <p className="items-margin"> Ver detalles </p>
+      <p className="items-margin"> | Ver detalles </p>
       <FaChevronDown />
     </div>
   );
@@ -68,7 +139,13 @@ export default function RequestOwner() {
     );
   };
 
-  const pending = pendingRequests.map((request) => (
+  const pendingApps = applications.filter((item) => {
+    return (
+      item.user_id === currentUser.id
+    );
+  });
+
+  const pending = requestz.map((request) => (
     <div className="blue-container">
       <Collapsible
         trigger={
@@ -85,8 +162,10 @@ export default function RequestOwner() {
         }
       >
         <div>
-          <p className="description-container">{request.description}</p>
-          {request.applications ? applicationsList(request.applications) : ''}
+          <p className="description-container"> Para un auto {request.carModel} se solicita llevarlo a revisión.</p>
+          <p className="description-container">{request.extraRequeriments}</p>
+          <p className="description-container"> Se necesita que se haga antes de {request.expirationDate}</p>
+          {applications ? applicationsList(applications) : ''}
         </div>
       </Collapsible>
     </div>
@@ -107,7 +186,15 @@ export default function RequestOwner() {
     );
   };
 
-  const accepted = pendingRequests.map((request) => (
+  const acceptedRequests = requestz.filter((item) => {
+    return (
+      item.status !== 'aceptada' ||
+      item.status !== 'pagada' ||
+      item.status !== 'completada'
+    );
+  });
+
+  const accepted = acceptedRequests.map((request) => (
     <div className="blue-container">
       <Collapsible
         trigger={
@@ -123,20 +210,33 @@ export default function RequestOwner() {
           </div>
         }
       >
-        <p className="description-container">{request.description}</p>
+        <p className="description-container">{request.price}</p>
       </Collapsible>
     </div>
   ));
 
-  return (
-    <div className="view-container">
-      <h1 className="title">SOLICITUDES</h1>
-      <div className="green-container">
-        <h2 className="green-title">Solicitudes Pendientes</h2>
-        {pending}
-        <h2 className="green-title">Solicitudes Aceptadas</h2>
-        {accepted}
+  const newRequestButton = (
+    <a href="/newrequest">
+      <div className="blue-button new-button">
+        <p className="nav-button-text">Nueva solicitud</p>
       </div>
-    </div>
+    </a>
+  );
+
+  return (
+    <>
+      <Navbar />
+      <div className="view-container">
+        <h1 className="title">SOLICITUDES</h1>
+        {newRequestButton}
+        <div className="register-div column">
+          <h2 className="green-title">Solicitudes Pendientes</h2>
+          {pending}
+          <h2 className="green-title">Solicitudes Aceptadas</h2>
+          {accepted}
+        </div>
+      </div>
+      <div className="empty-div-footer"></div>
+    </>
   );
 }

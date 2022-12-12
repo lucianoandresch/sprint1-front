@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import { Navbar } from './widgets/Navbar';
 import loginImage from '../assets/login_car.png';
+import useAuth from '../hooks/useAuth';
+import { Navbar } from './widgets/Navbar';
 
 const initialValues = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-  birthDate: '',
-  rut: '',
-  background: '',
-  userType: 'driver',
+  car: '',
+  price: '',
+  carModel: '',
+  extraRequeriments: '',
+  expirationDate: '',
+  address: '',
 };
 
-export default function RegisterDriver(args) {
+export default function NewRequest(args) {
   const [values, setValues] = useState(initialValues);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const { currentUser } = useAuth();
 
   const handleSubmit = async function handleSubmit(event) {
     event.preventDefault();
@@ -24,10 +24,11 @@ export default function RegisterDriver(args) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: currentUser?.token,
       },
       body: JSON.stringify({ ...values }),
     };
-    fetch(`${process.env.REACT_APP_API_URL}driver/register`, requestOptions)
+    fetch(`${process.env.REACT_APP_API_URL}car/request`, requestOptions)
       .then((response) => {
         if (!response.ok) {
           setError(true);
@@ -57,86 +58,86 @@ export default function RegisterDriver(args) {
       <Navbar />
       <div>
         <div className="login-view">
-          <h2 className="login-title">CHOFER</h2>
+          <h2 className="login-title">SOLICITUDES DUEÑO</h2>
           <div className="register-div">
             <div className="column left-align">
               <div>
-                <h2 className="blue-subtitle">Registro</h2>
+                <h2 className="blue-subtitle">Crear Solicitud</h2>
                 <form onSubmit={handleSubmit}>
                   <div className="row space-between">
                     <label>
-                      <p className="register-label">Nombre</p>
+                      <p className="register-label">Patente auto</p>
                       <input
                         className="form-text-field"
                         type="text"
-                        id="firstName"
-                        name="firstName"
-                        value={values.firstName}
+                        id="car"
+                        name="car"
+                        value={values.car}
                         onChange={handleChange}
                       />
                     </label>
                     <label>
-                      <p className="register-label">Apellido</p>
+                      <p className="register-label">Dirección</p>
                       <input
                         className="form-text-field"
                         type="text"
-                        id="lastName"
-                        name="lastName"
-                        value={values.lastName}
+                        id="address"
+                        name="address"
+                        value={values.address}
                         onChange={handleChange}
                       />
                     </label>
                   </div>
                   <div className="row space-between">
                     <label>
-                      <p className="register-label">Email</p>
+                      <p className="register-label">Modelo auto</p>
                       <input
                         type="text"
-                        value={values.email}
+                        value={values.carModel}
                         onChange={handleChange}
-                        name="email"
-                        id="email"
+                        name="carModel"
+                        id="carModel"
                         className="form-text-field"
                       />
                     </label>
                     <label>
-                      <p className="register-label">Contraseña</p>
+                      <p className="register-label">Pago</p>
                       <input
-                        type="password"
-                        value={values.password}
+                        type="number"
+                        value={values.price}
                         onChange={handleChange}
-                        id="password"
-                        name="password"
+                        id="price"
+                        name="price"
                         className="form-text-field"
                       />
                     </label>
                   </div>
                   <div className="row space-between">
                     <label>
-                      <p className="register-label">RUT</p>
-                      <input
-                        className="form-text-field"
-                        type="text"
-                        id="rut"
-                        name="rut"
-                        value={values.rut}
-                        onChange={handleChange}
-                      />
-                    </label>
-                    <label>
-                      <p className="register-label">Fecha de nacimiento</p>
+                      <p className="register-label">Fecha expiración</p>
                       <input
                         className="form-text-field"
                         type="date"
-                        id="birthDate"
-                        name="birthDate"
-                        value={values.birthDate}
+                        id="expirationDate"
+                        name="expirationDate"
+                        value={values.expirationDate}
+                        onChange={handleChange}
+                      />
+                    </label>
+                    <label>
+                      <p className="register-label">Requerimientos extra</p>
+                      <input
+                        className="form-text-field"
+                        type="text"
+                        id="extraRequeriments"
+                        name="extraRequeriments"
+                        value={values.extraRequeriments}
                         onChange={handleChange}
                       />
                     </label>
                   </div>
                   <button type="submit" className="form-submit">
-                    Registrarse
+                    Enviar
                   </button>
                   {error && <p>Algo malo sucedió. Probar nuevamente.</p>}
                 </form>

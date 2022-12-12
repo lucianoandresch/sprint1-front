@@ -7,7 +7,11 @@ import RequestDriver from './components/RequestDriver';
 import DriverRegisterRequests from './components/DriverRegisterRequests';
 import { BrowserRouter as Router1, Route, Routes } from 'react-router-dom';
 import AuthContextProvider from './contexts/AuthContext';
-
+import RequestOwner from './components/RequestOwner';
+import RequestDriver from './components/RequestDriver';
+import RegisterDriver from './components/RegisterDriver';
+import RegisterOwner from './components/RegisterOwner';
+import NewRequest from './components/newRequest';
 export default function RoutesApp() {
   return (
     <div>
@@ -16,6 +20,8 @@ export default function RoutesApp() {
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/register" element={<Register />} />
+            <Route exact path="/registerdriver" element={<RegisterDriver />} />
+            <Route exact path="/registerowner" element={<RegisterOwner />} />
             <Route exact path="/signin" element={<SignIn />} />
             <Route exact path="/requestowner" element={<RequestOwner />} />
             <Route exact path="/requestdriver" element={<RequestDriver />} />
@@ -24,6 +30,9 @@ export default function RoutesApp() {
               path="/DriverRegisterRequests"
               element={<DriverRegisterRequests />}
             />
+            <Route exact path="/requestowner" element={<RequestOwner />} />
+            <Route exact path="/requestdriver" element={<RequestDriver />} />
+            <Route exact path="/newrequest" element={<NewRequest />} />
           </Routes>
         </AuthContextProvider>
       </Router1>
