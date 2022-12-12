@@ -2,8 +2,6 @@ import React from 'react';
 import Home from './components/Home';
 import SignIn from './components/SignIn';
 import Register from './components/Register';
-import RequestOwner from './components/RequestOwner';
-import RequestDriver from './components/RequestDriver';
 import DriverRegisterRequests from './components/DriverRegisterRequests';
 import { BrowserRouter as Router1, Route, Routes } from 'react-router-dom';
 import AuthContextProvider from './contexts/AuthContext';
